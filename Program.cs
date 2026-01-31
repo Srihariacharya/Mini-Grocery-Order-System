@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using MiniGroceryOrderSystem.Data;
 using MiniGroceryOrderSystem.Repositories;
-
+using MiniGroceryOrderSystem.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +20,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 var app = builder.Build();
 
