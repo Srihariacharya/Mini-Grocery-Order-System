@@ -1,3 +1,8 @@
+using Microsoft.EntityFrameworkCore;
+using MiniGroceryOrderSystem.Data;
+using MiniGroceryOrderSystem.Repositories;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services
@@ -6,6 +11,15 @@ builder.Services.AddControllers();
 // Swagger services
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+   options.UseSqlite(
+    builder.Configuration.GetConnectionString("DefaultConnection")
+   )
+);
+
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 var app = builder.Build();
 
